@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+         #check:checked ~ #menu{
+            display: flex;
+            justify-content: space-evenly;
+            left: 0%;
+            width: 100%;
+        }
+        .logo{
+            transition: transform 0.5s ease-in-out , border-color 0.3s ease-in-out;
+            border: 4px solid transparent;
+        }
+        .logo:hover{
+            transform: rotate(360deg);
+            border: 1px solid rgb(213, 141, 213);
+        }
+    </style>
+</head>
+<body>
+ <h1 id="timer" class="bg-slate-200 text-xs sm:text-sm p-1 text-center">
+    <marquee behavior="alternate" direction="">
+        Starts Soon In &nbsp;-
+        <span id="displayDays">
+            <span class="eachdigit">00</span><span class="dots">:</span>
+        </span>
+        <span class="lables-1">days</span>
+        <span id="displayHours">
+            <span class="eachdigit">00</span><span class="dots">:</span>
+        </span>
+        <span  class="lables-2">hours</span>
+        <span id="displayMinutes">
+            <span class="eachdigit">00</span><span class="dots">:</span>
+        </span>
+        <span  class="lables-3">mins</span>
+        <span id="displaySeconds">
+        <span class="eachdigit">00</span>
+        </span>
+    <span  class="lables-4">sec</span>
+    </marquee>
+</h1>
+    <nav class=" md:h-20 h-16 sm:h-20 pt-5 relative flex shadow sm:bg-purple-100 ">
+  
+        <input type="checkbox" id="check" class="hidden">
+        <label for="check" class="absolute sm:bottom-10 bottom-5 text-xl sm:text-lg left-4 block sm:hidden">
+            <i class="fas fa-bars"></i>
+        </label>
+        <img src="republic day[1](1).png" class="logo absolute bottom-3 sm:bottom-2 bg-white w-12 sm:w-16 rounded-full border-4 border-transparent group left-14 sm:ml-6 " alt="">
+        <button class="bg-white absolute right-5 sm:right-10 bottom-3 sm:bottom-3  font-bold text-sm sm:text-lg  w-10   sm:w-10 h-10 transition delay-100 duration-300 ease-in-out  rounded-full hover:bg-purple-300 hover:text-white"><i class="fa-solid fa-user"></i></button>
+
+         <div id="menu" class=" flex-col sm:flex-row items-center fixed sm:absolute sm:left-50 left-[-200%] transition-all duration-300 ease-in-out mt-10 sm:mt-0 bg-purple-100 sm:pl-10 pl-0 sm:w-6/8 h-[85vh] sm:h-14 m-auto sm:rounded flex justify-around sm:gap-10 p-2.5">
+                 
+               
+                 <button class="sm:tracking-widest bg-white  font-bold text-xs md:text-xs lg:text-sm  w-1/3 sm:w-1/3 h-10 transition delay-100 duration-300 ease-in-out  rounded-md hover:bg-purple-300 hover:text-white "><i class="fa-solid fa-house"></i> Home</button>
+                 <button class="sm:tracking-widest bg-white  font-bold text-xs md:text-xs lg:text-sm  w-1/3 sm:w-1/2 h-9 transition delay-100 duration-300  rounded-md hover:bg-purple-300 hover:text-white"><i class="fa-solid fa-users"></i> About Us</button>
+                 <button class="sm:tracking-widest bg-white  font-bold text-xs md:text-xs lg:text-sm  w-1/3 sm:w-1/3 h-9 transition delay-100 duration-300  rounded-md hover:bg-purple-300 hover:text-white"><i class="fa-solid fa-book-open"></i> Courses</button>
+                 <button class="sm:tracking-widest bg-white  font-bold text-xs md:text-xs lg:text-sm  w-1/3 sm:w-1/2 h-9 transition delay-100 duration-300  rounded-md hover:bg-purple-300 hover:text-white"><i class="fa-solid fa-file"></i> Assignments</button>
+                 <button class="sm:tracking-widest bg-white  font-bold text-xs md:text-xs lg:text-sm  w-1/3 sm:w-1/3 h-9 transition delay-100 duration-300  rounded-md hover:bg-purple-300 hover:text-white"><i class="fa-solid fa-phone"></i> Contact</button>
+                 <button class="sm:tracking-widest bg-white  font-bold text-xs md:text-xs lg:text-sm  w-1/3 sm:w-1/3 h-9 transition delay-100 duration-300 ease-in-out  rounded-md hover:bg-purple-300 hover:text-white "><i class="fa-solid fa-circle-nodes"></i> Connect</button>  
+         </div>      
+        
+    </nav>
+
+
+   
+    <script>
+ //dont disturb this code its just used as timer ...!       
+
+const displayDays = document.getElementById('displayDays')
+const displayHours = document.getElementById('displayHours')
+const displayMinutes = document.getElementById('displayMinutes')
+const displaySeconds = document.getElementById('displaySeconds')
+const times = document.getElementById("times")
+
+let inputdate = "2026-01-01"
+let timer;
+let userDate = inputdate;
+
+function startTimer(){
+function updateCounter(){
+
+let currentDate = new Date();
+let birthdate = new Date(userDate);
+birthdate.setHours(0,0,0,0);
+
+let Difference_In_Time =  birthdate.getTime() - currentDate.getTime() ;
+
+if(Difference_In_Time < 0 ){
+    clearInterval(timer);
+            console.log("Timer Ended");
+            displayDays.innerHTML = "00:";
+            displayHours.innerHTML = "00:";
+            displayMinutes.innerHTML = "00:";
+            displaySeconds.innerHTML = "00";
+    return;
+}
+
+ let  totaldays =0;
+ let  totalhours =0;
+ let  totalminutes=0;
+ let totalseconds =0;
+ 
+let seconds = Math.floor(Difference_In_Time/1000);
+
+totaldays = Math.floor(seconds/(24*3600));
+seconds %= (24*3600);
+
+totalhours = Math.floor(seconds/3600);
+seconds %= 3600;
+
+ totalminutes = Math.floor(seconds/60);
+
+ totalseconds = seconds % 60;
+    displayDays.innerHTML =`<span class="eachdigit">${totaldays < 10 ? '0' +totaldays : totaldays }</span><span class="dots">:</span>`;
+    displayHours.innerHTML  =`<span class="eachdigit">${totalhours < 10 ? '0' +totalhours : totalhours }</span><span class="dots">:</span>`;
+    displayMinutes.innerHTML = `<span class="eachdigit">${totalminutes < 10 ? '0' +totalminutes : totalminutes }</span><span class="dots">:</span>`;
+    displaySeconds.innerHTML =`<span class="eachdigit">${totalseconds < 10 ? '0' +totalseconds : totalseconds }</span>`;
+    // console.log(`days${totaldays},hours${totalhours},minutes${totalminutes},seconds${totalseconds}`)
+}
+
+updateCounter()
+timer = setInterval(updateCounter, 1000);
+}
+startTimer();
+
+
+//timer code ends here
+
+
+
+
+
+    </script>
+</body>
+</html>
