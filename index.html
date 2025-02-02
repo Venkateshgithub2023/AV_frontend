@@ -7,7 +7,7 @@
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        .flip-container {
+      .flip-container {
             perspective: 1000px;
             position: relative; 
             width: 100%;
@@ -22,10 +22,14 @@
         }
         .front, .back {
             backface-visibility: hidden;
-            
+            position: absolute;
+    
         }
         .back {
             transform: rotateY(180deg);
+        }
+        .hidden {
+            display: none;
         }
         </style>
 </head>
@@ -33,22 +37,38 @@
  <div id="formpage" class="h-screen flex justify-center items-center">
        <div class="w-full sm:w-2/6 h-screen sm:h-4/5 rounded-lg relative shadow-[0_0_10px_rgba(0,0,0,0.3)] ">
 
- <div class="flip-container bg-white flex justify-center items-center overflow-hidden ">
+ <div id="FlipConatiner" class="flip-container bg-white flex justify-center items-center overflow-hidden ">
        <div id="flipper" class="flipper w-full h-full relative ">
 
       <!-- this is sign in card -->
-        <div class="front bg-white absolute flex flex-col space-y-5 sm:top-10 top-20 left-5  w-10/11 p-5 pl-2 sm:pl-5">
-        <h1 class="font-sans text-3xl sm:text-4xl font-bold tracking-wider text-slate-800 w-1/2 sm:w-4/5  sm:text-center m-auto mb-5">Sign-In</h1>
-        <div class="w-2/3 sm:w-1/2 flex gap-5 sm:justify-between m-auto mb-5">
-         <span><i class="fa-brands text-red-500 fa-google-plus-g text-2xl"></i></span>
-         <span><i class="fa-brands text-blue-500 fa-facebook text-2xl"></i></span>
-         <span><i class="fa-brands fa-github text-2xl"></i></span>
-         <span><i class="fa-brands text-blue-500 fa-linkedin text-2xl"></i></span>
-        </div>
+      <div id="SignInConatiner" class="front bg-white absolute flex flex-col space-y-5 sm:top-10 top-20 left-5  w-10/11 p-5 pl-2 sm:pl-5">
+             <div class=" sm:w-2/3  m-auto">
+                <h1 class="text-center font-sans text-3xl sm:text-4xl font-bold tracking-wider text-slate-800 sm:text-center m-auto mb-5">Sign-In</h1>
+                <div class="w-full  flex gap-9 sm:justify-between m-auto mb-5">
+                  <span><i class="fa-brands text-red-500 fa-google-plus-g text-2xl"></i></span>
+                  <span><i class="fa-brands text-blue-500 fa-facebook text-2xl"></i></span>
+                  <span><i class="fa-brands fa-github text-2xl"></i></span>
+                  <span><i class="fa-brands text-blue-500 fa-linkedin text-2xl"></i></span>
+                </div>
+              </div>
         <input type="text" placeholder="USERNAME" class="bg-gray-100 p-2 rounded-lg sm:w-1/2 w-full sm:w-full outline-none pl-5">
         <input type="text" placeholder="PASSWORD" class="bg-gray-100 p-2 rounded-lg sm:w-1/2 w-full sm:w-full outline-none pl-5">
         <button class="p-2 bg-blue-900 text-white font-bold rounded-lg sm:w-full w-full cursor-pointer" >Sign-In</button>
+        <p class="w-1/2 text-center m-auto cursor-pointer" id="forgotpassword" onclick="Password()">Forgot Password ?</p>
         <p class="text-center text-gray-500 underline cursor-pointer mt-4" onclick="flipCard()">New ? Sign-Up</p>
+    </div>
+
+
+            <!-- this is forgot otp page -->
+        <div id="forgotpasswordContainer" class=" h-full w-full bg-white absolute flex flex-col justify-center item-center space-y-5 p-5  pl-10 sm:pl-5 hidden ">
+             <h3 class="text-center font-sans text-2xl sm:text-3xl font-bold tracking-wider text-slate-800 sm:text-center w-3/4  sm:w-3/4 ml-5 sm:ml-10"><i class="fa-solid fa-face-grin-beam-sweat text-yellow-300"></i> Forgot Password</h3>
+             <input type="email" placeholder="Enter Your E-mail" class="bg-gray-100 p-2 rounded-lg sm:w-1/2 w-10/11 sm:w-full outline-none pl-5">
+             <input type="text" name="" id="" placeholder="Enter Otp" class="bg-gray-100 p-2 rounded-lg sm:w-1/2 w-10/11 sm:w-full outline-none pl-5">
+             <div class="flex gap-2 sm:w-1/2 w-10/11 sm:w-full">
+             <button class="p-2 bg-blue-900 text-white font-bold rounded-lg sm:w-full w-10/11 cursor-pointer" >Get-Otp</button>
+             <button class="p-2 bg-blue-900 text-white font-bold rounded-lg sm:w-full w-10/11 cursor-pointer" >Verify</button>
+            </div>
+             <p class="text-center text-gray-500 underline cursor-pointer" id="backToSignin" onclick="backToSignIn()">Back to Sign-In</p>
         </div>
 
 
@@ -72,6 +92,18 @@
         function flipCard() {
             document.getElementById("flipper").classList.toggle("flipped");
         }
+        const forgotpassword = document.getElementById('forgotpassword')
+        const forgotpasswordContainer = document.getElementById('forgotpasswordContainer')
+        const backToSignin = document.getElementById('backToSignin')
+        const SignInConatiner = document.getElementById('SignInConatiner')
+       function Password(){
+          SignInConatiner.classList.add("hidden")
+          forgotpasswordContainer.classList.remove("hidden")
+      }
+        backToSignin.addEventListener('click',()=>{
+            SignInConatiner.classList.remove("hidden")
+            forgotpasswordContainer.classList.add("hidden")
+        })
     </script>
 </body>
 </html>
